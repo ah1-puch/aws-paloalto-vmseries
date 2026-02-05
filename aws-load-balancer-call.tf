@@ -1,5 +1,5 @@
 module "cust_load_balancer" {
-  source = "git::https://github.com/TechService-Public-Cloud-Products/aws-tf-core-load-balancer.git?ref=main"
+  source = "git::https://github.com/GithubOrg/aws-tf-core-load-balancer.git?ref=main"
   # source = "../aws-tf-core-load-balancer"
   
   datasource    = local.config.network.datasource

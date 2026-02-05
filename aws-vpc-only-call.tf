@@ -1,5 +1,5 @@
 module "cust_vpc" {
-  source = "git::https://github.com/TechService-Public-Cloud-Products/aws-tf-core-vpc.git?ref=main"
+  source = "git::https://github.com/GithubOrg/aws-tf-core-vpc.git?ref=main"
   # source = "../aws-tf-core-vpc"
   
   # Only pass VPC and subnet configuration, exclude network_interface and transit_gateway

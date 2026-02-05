@@ -1,5 +1,5 @@
 module "cust_transit_gateway" {
-  source = "git::https://github.com/TechService-Public-Cloud-Products/aws-tf-core-vpc.git?ref=main"
+  source = "git::https://github.com/GithubOrg/aws-tf-core-vpc.git?ref=main"
   
   vpc = {
     transit_gateway = local.config.network.transit_gateway
