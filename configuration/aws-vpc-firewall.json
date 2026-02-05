@@ -1,0 +1,287 @@
+{
+  "network": {
+    "vpc": {
+      "firewall": {
+        "cidr_block": "10.20.255.0/24",
+        "instance_tenancy": "default",
+        "enable_dns_hostnames": false,
+        "enable_dns_support": false,
+        "assign_generated_ipv6_cidr_block": false,
+        "name": "firewall",
+        "tags": {
+          "role": "firewall",
+          "group": "connectivity"
+        },
+        "internet_gateway": {
+          "name": "igw-firewall",
+          "tags": {
+            "Name": "igw-firewall",
+            "role": "firewall-igw"
+          }
+        }
+      }
+    },
+    "subnet": {
+      "tgw-attachment-az1": {
+        "vpc_id": "firewall",
+        "name": "tgw-attachment-az1",
+        "availability_zone": "eu-west-1a",
+        "cidr_block": "10.20.255.0/28",
+        "tags": {
+          "role": "tgw attachment az1"
+        }
+      },
+      "tgw-attachment-az2": {
+        "vpc_id": "firewall",
+        "name": "tgw-attachment-az2",
+        "availability_zone": "eu-west-1b",
+        "cidr_block": "10.20.255.16/28",
+        "tags": {
+          "role": "tgw attachment az2"
+        }
+      },
+      "gwlb-endpoint-az1": {
+        "vpc_id": "firewall",
+        "name": "gwlb-endpoint-az1",
+        "availability_zone": "eu-west-1a",
+        "cidr_block": "10.20.255.32/28",
+        "tags": {
+          "role": "gwlb endpoint az1"
+        }
+      },
+      "gwlb-endpoint-az2": {
+        "vpc_id": "firewall",
+        "name": "gwlb-endpoint-az2",
+        "availability_zone": "eu-west-1b",
+        "cidr_block": "10.20.255.48/28",
+        "tags": {
+          "role": "gwlb endpoint az2"
+        }
+      },
+      "gwlb-az1": {
+        "vpc_id": "firewall",
+        "name": "gwlb-az1",
+        "availability_zone": "eu-west-1a",
+        "cidr_block": "10.20.255.64/28",
+        "tags": {
+          "role": "gwlb az1"
+        }
+      },
+      "gwlb-az2": {
+        "vpc_id": "firewall",
+        "name": "gwlb-az2",
+        "availability_zone": "eu-west-1b",
+        "cidr_block": "10.20.255.80/28",
+        "tags": {
+          "role": "gwlb az2"
+        }
+      },
+      "pa-private-az1": {
+        "vpc_id": "firewall",
+        "name": "pa-private-az1",
+        "availability_zone": "eu-west-1a",
+        "cidr_block": "10.20.255.96/28",
+        "tags": {
+          "role": "pa private az1"
+        }
+      },
+      "pa-private-az2": {
+        "vpc_id": "firewall",
+        "name": "pa-private-az2",
+        "availability_zone": "eu-west-1b",
+        "cidr_block": "10.20.255.112/28",
+        "tags": {
+          "role": "pa private az2"
+        }
+      },
+      "pa-public-az1": {
+        "vpc_id": "firewall",
+        "name": "pa-public-az1",
+        "availability_zone": "eu-west-1a",
+        "cidr_block": "10.20.255.128/28",
+        "tags": {
+          "role": "pa public az1"
+        }
+      },
+      "pa-public-az2": {
+        "vpc_id": "firewall",
+        "name": "pa-public-az2",
+        "availability_zone": "eu-west-1b",
+        "cidr_block": "10.20.255.144/28",
+        "tags": {
+          "role": "pa public az2"
+        }
+      },
+      "pa-management-az1": {
+        "vpc_id": "firewall",
+        "name": "pa-management-az1",
+        "availability_zone": "eu-west-1a",
+        "cidr_block": "10.20.255.160/28",
+        "tags": {
+          "role": "pa management az1"
+        }
+      },
+      "pa-management-az2": {
+        "vpc_id": "firewall",
+        "name": "pa-management-az2",
+        "availability_zone": "eu-west-1b",
+        "cidr_block": "10.20.255.176/28",
+        "tags": {
+          "role": "pa management az2"
+        }
+      }
+    },
+    "route_table": {
+      "gwlb-endpoint-az1-rt": {
+        "vpc_id": "firewall",
+        "name": "gwlb-endpoint-az1-rt",
+        "tags": {
+          "Name": "gwlb-endpoint-az1-rt",
+          "role": "gwlb-endpoint route table"
+        },
+        "route_table_association": [
+          {
+            "subnet_id": "gwlb-endpoint-az1"
+          }
+        ]
+      },
+      "gwlb-endpoint-az2-rt": {
+        "vpc_id": "firewall",
+        "name": "gwlb-endpoint-az2-rt",
+        "tags": {
+          "Name": "gwlb-endpoint-az2-rt",
+          "role": "gwlb-endpoint route table"
+        },
+        "route_table_association": [
+          {
+            "subnet_id": "gwlb-endpoint-az2"
+          }
+        ]
+      },
+      "tgw-attachment-rt": {
+        "vpc_id": "firewall",
+        "name": "tgw-attachment-rt",
+        "tags": {
+          "Name": "tgw-attachment-rt",
+          "role": "tgw-attachment route table"
+        },
+        "route_table_association": [
+          {
+            "subnet_id": "tgw-attachment-az1"
+          },
+          {
+            "subnet_id": "tgw-attachment-az2"
+          }
+        ]
+      },
+      "gwlb-rt": {
+        "vpc_id": "firewall",
+        "name": "gwlb-rt",
+        "tags": {
+          "Name": "gwlb-rt",
+          "role": "gwlb route table"
+        },
+        "route_table_association": [
+          {
+            "subnet_id": "gwlb-az1"
+          },
+          {
+            "subnet_id": "gwlb-az2"
+          }
+        ]
+      },
+      "pa-private-rt": {
+        "vpc_id": "firewall",
+        "name": "pa-private-rt",
+        "tags": {
+          "Name": "pa-private-rt",
+          "role": "pa-private route table"
+        },
+        "route_table_association": [
+          {
+            "subnet_id": "pa-private-az1"
+          },
+          {
+            "subnet_id": "pa-private-az2"
+          }
+        ]
+      },
+      "pa-public-rt": {
+        "vpc_id": "firewall",
+        "name": "pa-public-rt",
+        "tags": {
+          "Name": "pa-public-rt",
+          "role": "pa-public route table"
+        },
+        "route_table_association": [
+          {
+            "subnet_id": "pa-public-az1"
+          },
+          {
+            "subnet_id": "pa-public-az2"
+          }
+        ]
+      },
+      "pa-management-rt": {
+        "vpc_id": "firewall",
+        "name": "pa-management-rt",
+        "tags": {
+          "Name": "pa-management-rt",
+          "role": "pa-management route table"
+        },
+        "route_table_association": [
+          {
+            "subnet_id": "pa-management-az1"
+          },
+          {
+            "subnet_id": "pa-management-az2"
+          }
+        ]
+      }
+    },
+    "route": {
+      "gwlb-endpoint-az1-rfc1918-10": {
+        "route_table_id": "gwlb-endpoint-az1-rt",
+        "destination_cidr_block": "10.0.0.0/8",
+        "transit_gateway_id": "ireland_tgw",
+        "name": "RFC1918_10"
+      },
+      "gwlb-endpoint-az1-rfc1918-172": {
+        "route_table_id": "gwlb-endpoint-az1-rt",
+        "destination_cidr_block": "172.16.0.0/16",
+        "transit_gateway_id": "ireland_tgw",
+        "name": "RFC1918_172"
+      },
+      "gwlb-endpoint-az1-rfc1918-192": {
+        "route_table_id": "gwlb-endpoint-az1-rt",
+        "destination_cidr_block": "192.168.0.0/16",
+        "transit_gateway_id": "ireland_tgw",
+        "name": "RFC1918_192"
+      },
+      "gwlb-endpoint-az2-rfc1918-10": {
+        "route_table_id": "gwlb-endpoint-az2-rt",
+        "destination_cidr_block": "10.0.0.0/8",
+        "transit_gateway_id": "ireland_tgw",
+        "name": "RFC1918_10"
+      },
+      "gwlb-endpoint-az2-rfc1918-172": {
+        "route_table_id": "gwlb-endpoint-az2-rt",
+        "destination_cidr_block": "172.16.0.0/16",
+        "transit_gateway_id": "ireland_tgw",
+        "name": "RFC1918_172"
+      },
+      "gwlb-endpoint-az2-rfc1918-192": {
+        "route_table_id": "gwlb-endpoint-az2-rt",
+        "destination_cidr_block": "192.168.0.0/16",
+        "transit_gateway_id": "ireland_tgw",
+        "name": "RFC1918_192"
+      },
+      "pa-public-default": {
+        "route_table_id": "pa-public-rt",
+        "destination_cidr_block": "0.0.0.0/0",
+        "gateway_id": "firewall",
+        "name": "default-route"
+      }
+    }
+  }
+} 

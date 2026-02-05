@@ -1,0 +1,66 @@
+{
+  "network": {
+    "network_interface": {
+      "01_private": {
+        "subnet_id": "pa-private-az1",
+        "security_groups": ["vmseries_private"],
+        "source_dest_check": false,
+        "tags": {
+          "Name": "PA-VMSeries-01-Private",
+          "Environment": "Production",
+          "ManagedBy": "Terraform"
+        }
+      },
+      "01_management": {
+        "subnet_id": "pa-management-az1",
+        "security_groups": ["vmseries_mgmt"],
+        "source_dest_check": true,
+        "tags": {
+          "Name": "PA-VMSeries-01-Management",
+          "Environment": "Production",
+          "ManagedBy": "Terraform"
+        }
+      },
+      "01_public": {
+        "subnet_id": "pa-public-az1",
+        "security_groups": ["vmseries_public"],
+        "source_dest_check": false,
+        "tags": {
+          "Name": "PA-VMSeries-01-Public",
+          "Environment": "Production",
+          "ManagedBy": "Terraform"
+        }
+      },
+      "02_private": {
+        "subnet_id": "pa-private-az2",
+        "security_groups": ["vmseries_private"],
+        "source_dest_check": false,
+        "tags": {
+          "Name": "PA-VMSeries-02-Private",
+          "Environment": "Production",
+          "ManagedBy": "Terraform"
+        }
+      },
+      "02_management": {
+        "subnet_id": "pa-management-az2",
+        "security_groups": ["vmseries_mgmt"],
+        "source_dest_check": true,
+        "tags": {
+          "Name": "PA-VMSeries-02-Management",
+          "Environment": "Production",
+          "ManagedBy": "Terraform"
+        }
+      },
+      "02_public": {
+        "subnet_id": "pa-public-az2",
+        "security_groups": ["vmseries_public"],
+        "source_dest_check": false,
+        "tags": {
+          "Name": "PA-VMSeries-02-Public",
+          "Environment": "Production",
+          "ManagedBy": "Terraform"
+        }
+      }
+    }
+  }
+} 

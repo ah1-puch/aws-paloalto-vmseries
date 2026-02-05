@@ -1,0 +1,173 @@
+{
+  "compute": {
+    "datasource": {
+      "ami": {
+        "panos_ami": {
+          "owners": ["aws-marketplace"],
+          "most_recent": "true",
+          "include_deprecated": "false",
+          "executable_users": ["all"],
+          "filter": [
+            {
+              "name": "name",
+              "values": ["PA-VM-AWS-11.1*"]
+            },
+            {
+              "name": "product-code",
+              "values": ["6njl1pau431dv1qxipg63mvah"]
+            }
+          ]
+        }
+      },
+      "kms_key": {
+        "ebs_default": {
+          "key_id": "alias/aws/ebs"
+        }
+      }
+    },
+    "ec2": {
+      "key_pair": {
+        "pa_key_pair": {
+          "key_name": "victor-1-kp",
+          "public_key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILhnwjpMbyFgNlS5mMoo018Fk5H4KConhaDYFXCdd4x1"
+        }
+      },
+      "instance": {
+        "01": {
+          "ami": "panos_ami",
+          "availability_zone": "eu-west-1a",
+          "instance_type": "c5n.xlarge",
+          "key_name": "victor-1-kp",
+          "iam_instance_profile": "vmseries_instance_profile",
+          "user_data": "mgmt-interface-swap=enable,plugin-op-commands=panorama-licensing-mode-on,aws-gwlb-inspect:enable,aws-gwlb-overlay-routing:enable,panorama-server=10.255.0.10,auth-key=,dgname=centralized,tplname=centralized-stack,dhcp-send-hostname=yes,dhcp-send-client-id=yes,dhcp-accept-server-hostname=yes,dhcp-accept-server-domain=yes",
+          "monitoring": "false",
+          "ebs_optimized": "true",
+          "disable_api_termination": "false",
+          "instance_initiated_shutdown_behavior": "stop",
+          "metadata_options": {
+            "http_endpoint": "enabled",
+            "http_tokens": ["required"]
+          },
+          "root_block_device": {
+            "delete_on_termination": "true",
+            "encrypted": "true",
+            "kms_key_id": "ebs_default"
+          },
+          "tags": {
+            "Name": "PA-VMSeries-01",
+            "Environment": "Production",
+            "ManagedBy": "Terraform"
+          },
+          "volume_tags": {
+            "Name": "PA-VMSeries-01",
+            "Environment": "Production",
+            "ManagedBy": "Terraform"
+          },
+          "network_interface": [
+            {
+              "network_interface_id": "01_private",
+              "device_index": 0
+            },
+            {
+              "network_interface_id": "01_management",
+              "device_index": 1
+            },
+            {
+              "network_interface_id": "01_public",
+              "device_index": 2
+            }
+          ]
+        },
+        "02": {
+          "ami": "panos_ami",
+          "availability_zone": "eu-west-1b",
+          "instance_type": "c5n.xlarge",
+          "key_name": "victor-1-kp",
+          "iam_instance_profile": "vmseries_instance_profile",
+          "user_data": "mgmt-interface-swap=enable,plugin-op-commands=panorama-licensing-mode-on,aws-gwlb-inspect:enable,aws-gwlb-overlay-routing:enable,panorama-server=10.255.0.10,auth-key=,dgname=centralized,tplname=centralized-stack,dhcp-send-hostname=yes,dhcp-send-client-id=yes,dhcp-accept-server-hostname=yes,dhcp-accept-server-domain=yes",
+          "monitoring": "false",
+          "ebs_optimized": "true",
+          "disable_api_termination": "false",
+          "instance_initiated_shutdown_behavior": "stop",
+          "metadata_options": {
+            "http_endpoint": "enabled",
+            "http_tokens": ["required"]
+          },
+          "root_block_device": {
+            "delete_on_termination": "true",
+            "encrypted": "true",
+            "kms_key_id": "ebs_default"
+          },
+          "tags": {
+            "Name": "PA-VMSeries-02",
+            "Environment": "Production",
+            "ManagedBy": "Terraform"
+          },
+          "volume_tags": {
+            "Name": "PA-VMSeries-02",
+            "Environment": "Production",
+            "ManagedBy": "Terraform"
+          },
+          "network_interface": [
+            {
+              "network_interface_id": "02_private",
+              "device_index": 0
+            },
+            {
+              "network_interface_id": "02_management",
+              "device_index": 1
+            },
+            {
+              "network_interface_id": "02_public",
+              "device_index": 2
+            }
+          ]
+        }
+      },
+      "eip": {
+        "01_mgmt": {
+          "domain": "vpc",
+          "network_interface": "01_management",
+          "tags": {
+            "Name": "PA-VMSeries-01-Management",
+            "Environment": "Production",
+            "ManagedBy": "Terraform"
+          }
+        },
+        "01_public": {
+          "domain": "vpc",
+          "network_interface": "01_public",
+          "tags": {
+            "Name": "PA-VMSeries-01-Public",
+            "Environment": "Production",
+            "ManagedBy": "Terraform"
+          }
+        },
+        "02_mgmt": {
+          "domain": "vpc",
+          "network_interface": "02_management",
+          "tags": {
+            "Name": "PA-VMSeries-02-Management",
+            "Environment": "Production",
+            "ManagedBy": "Terraform"
+          }
+        },
+        "02_public": {
+          "domain": "vpc",
+          "network_interface": "02_public",
+          "tags": {
+            "Name": "PA-VMSeries-02-Public",
+            "Environment": "Production",
+            "ManagedBy": "Terraform"
+          }
+        }
+      }
+    }
+  },
+  "common": {
+    "tags": {
+      "Owner": "Victor",
+      "Project": "AWS Platform Connectivity"
+    }
+  }
+} 

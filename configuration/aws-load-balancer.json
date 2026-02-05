@@ -1,0 +1,72 @@
+{
+  "network": {
+    "datasource": {
+    },
+    "load_balancer": {
+      "firewall_gwlb": {
+        "name": "pa-gwlb",
+        "load_balancer_type": "gateway",
+        "subnets": ["gwlb-az1", "gwlb-az2"],
+        "vpc_id": "firewall",
+        "target_groups": {
+          "main": {
+            "port": 6081,
+            "protocol": "GENEVE",
+            "target_type": "instance",
+            "health_check": {
+              "port": 80,
+              "protocol": "TCP",
+              "interval": 10,
+              "healthy_threshold": 2,
+              "unhealthy_threshold": 2
+            },
+            "targets": [
+              {
+                "id": "01",
+                "port": 6081
+              },
+              {
+                "id": "02",
+                "port": 6081
+              }
+            ]
+          }
+        },
+        "listeners": {
+          "main": {
+            "default_action": {
+              "type": "forward",
+              "target_group_arn": "firewall_gwlb:main"
+            }
+          }
+        },
+        "tags": {
+          "Name": "pa-firewall-gwlb",
+          "Environment": "Production",
+          "ManagedBy": "Terraform"
+        },
+        "vpc_endpoint_service": {
+          "acceptance_required": false,
+          "gateway_load_balancer_arns": ["firewall_gwlb"],
+          "name": "pa-gwlb-service"
+        },
+        "vpc_endpoints": {
+          "az1": {
+            "vpc_id": "firewall",
+            "service_name": "firewall_gwlb",
+            "vpc_endpoint_type": "GatewayLoadBalancer",
+            "subnet_ids": ["gwlb-endpoint-az1"],
+            "name": "pa-gwlb-endpoint-az1"
+          },
+          "az2": {
+            "vpc_id": "firewall",
+            "service_name": "firewall_gwlb",
+            "vpc_endpoint_type": "GatewayLoadBalancer",
+            "subnet_ids": ["gwlb-endpoint-az2"],
+            "name": "pa-gwlb-endpoint-az2"
+          }
+        }
+      }
+    }
+  }
+} 

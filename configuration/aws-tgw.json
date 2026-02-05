@@ -1,0 +1,97 @@
+{
+  "network": {
+    "transit_gateway": {
+      "ireland_tgw": {
+        "name": "ireland-tgw",
+        "description": "ireland network connectivity hub",
+        "amazon_side_asn": "65499",
+        "default_route_table_association": "disable",
+        "default_route_table_propagation": "disable",
+        "auto_accept_shared_attachments": "enable",
+        "vpn_ecmp_support": "enable",
+        "dns_support": "enable",
+        "tags": {
+          "environment": "prod",
+          "role": "networking",
+          "region": "ireland"
+        },
+        "vpc_attachment": {
+          "spoke_a_to_tgw": {
+            "subnet_ids": ["private-a"],
+            "vpc_id": "spoke-a",
+            "appliance_mode_support": "disable",
+            "dns_support": "enable",
+            "transit_gateway_default_route_table_association": false,
+            "transit_gateway_default_route_table_propagation": false,
+            "name": "spoke-a-to-tgw",
+            "tags": {
+              "Name": "spoke-a-to-tgw"
+            }
+          },
+          "spoke_b_to_tgw": {
+            "subnet_ids": ["private-b"],
+            "vpc_id": "spoke-b",
+            "appliance_mode_support": "disable",
+            "dns_support": "enable",
+            "transit_gateway_default_route_table_association": false,
+            "transit_gateway_default_route_table_propagation": false,
+            "name": "spoke-b-to-tgw",
+            "tags": {
+              "Name": "spoke-b-to-tgw"
+            }
+          },
+          "firewall_to_tgw": {
+            "subnet_ids": ["tgw-attachment-az1", "tgw-attachment-az2"],
+            "vpc_id": "firewall",
+            "appliance_mode_support": "enable",
+            "dns_support": "enable",
+            "transit_gateway_default_route_table_association": false,
+            "transit_gateway_default_route_table_propagation": false,
+            "name": "firewall-to-tgw",
+            "tags": {
+              "Name": "firewall-to-tgw"
+            }
+          }
+        }
+      }
+    },
+    "route_table": {
+      "spoke_rt": {
+        "vpc_id": "spoke-a",
+        "name": "spoke-rt",
+        "tags": {
+          "Name": "spoke-rt"
+        }
+      },
+      "firewall_rt": {
+        "vpc_id": "firewall",
+        "name": "firewall-rt",
+        "tags": {
+          "Name": "firewall-rt"
+        }
+      }
+    },
+    "route": {
+      "spoke_to_firewall": {
+        "route_table_id": "spoke_rt",
+        "destination_cidr_block": "0.0.0.0/0",
+        "transit_gateway_id": "ireland_tgw"
+      },
+      "firewall_to_egress": {
+        "route_table_id": "firewall_rt",
+        "destination_cidr_block": "0.0.0.0/0",
+        "transit_gateway_id": "ireland_tgw"
+      },
+      "firewall_to_spoke_a": {
+        "route_table_id": "firewall_rt",
+        "destination_cidr_block": "10.20.1.0/24",
+        "transit_gateway_id": "ireland_tgw"
+      },
+      "firewall_to_spoke_b": {
+        "route_table_id": "firewall_rt",
+        "destination_cidr_block": "10.20.2.0/24",
+        "transit_gateway_id": "ireland_tgw"
+      }
+    }
+  }
+} 

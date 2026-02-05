@@ -1,0 +1,122 @@
+{
+  "network": {
+    "vpc": {
+      "spoke-a": {
+        "name": "spoke-a",
+        "group": "connectivity",
+        "tags": {
+          "role": "spoke"
+        },
+        "cidr_block": "10.20.1.0/24",
+        "instance_tenancy": "default",
+        "enable_dns_hostnames": true,
+        "enable_dns_support": true,
+        "assign_generated_ipv6_cidr_block": false,
+        "deploy_internet_gateway": true
+      },
+      "spoke-b": {
+        "name": "spoke-b",
+        "group": "connectivity",
+        "tags": {
+          "role": "spoke"
+        },
+        "cidr_block": "10.20.2.0/24",
+        "instance_tenancy": "default",
+        "enable_dns_hostnames": true,
+        "enable_dns_support": true,
+        "assign_generated_ipv6_cidr_block": false,
+        "deploy_internet_gateway": true
+      }
+    },
+    "subnet": {
+      "private-a": {
+        "vpc_id": "spoke-a",
+        "name": "private-a",
+        "subnet_group": "private-a",
+        "attach_to_tgw": true,
+        "availability_zone": "eu-west-1a",
+        "cidr_block": "10.20.1.0/28",
+        "enable_dns64": false,
+        "enable_resource_name_dns_aaaa_record_on_launch": false,
+        "enable_resource_name_dns_a_record_on_launch": false,
+        "private_dns_hostname_type_on_launch": "ip-name",
+        "tags": {
+          "role": "private subnet AZ-1a"
+        }
+      },
+      "public-a": {
+        "vpc_id": "spoke-a",
+        "name": "public-a",
+        "subnet_group": "public",
+        "attach_to_tgw": false,
+        "availability_zone": "eu-west-1a",
+        "cidr_block": "10.20.1.16/28",
+        "enable_dns64": false,
+        "enable_resource_name_dns_aaaa_record_on_launch": false,
+        "enable_resource_name_dns_a_record_on_launch": false,
+        "private_dns_hostname_type_on_launch": "ip-name",
+        "tags": {
+          "role": "public subnet AZ-1a"
+        }
+      },
+      "private-b": {
+        "vpc_id": "spoke-b",
+        "name": "private-b",
+        "subnet_group": "private-b",
+        "attach_to_tgw": true,
+        "availability_zone": "eu-west-1a",
+        "cidr_block": "10.20.2.0/24",
+        "enable_dns64": false,
+        "enable_resource_name_dns_aaaa_record_on_launch": false,
+        "enable_resource_name_dns_a_record_on_launch": false,
+        "private_dns_hostname_type_on_launch": "ip-name",
+        "tags": {
+          "role": "private subnet AZ-1a"
+        }
+      }
+    },
+    "route_table": {
+      "private-a-rt": {
+        "vpc_id": "spoke-a",
+        "name": "private-a-rt",
+        "tags": {
+          "Name": "private-a-rt",
+          "role": "private-a route table"
+        },
+        "route_table_association": [
+          {
+            "subnet_id": "private-a"
+          }
+        ]
+      },
+      "public-a-rt": {
+        "vpc_id": "spoke-a",
+        "name": "public-a-rt",
+        "tags": {
+          "Name": "public-a-rt",
+          "role": "public-a route table"
+        },
+        "route_table_association": [
+          {
+            "subnet_id": "public-a"
+          }
+        ]
+      },
+      "private-b-rt": {
+        "vpc_id": "spoke-b",
+        "name": "private-b-rt",
+        "tags": {
+          "Name": "private-b-rt",
+          "role": "private-b route table"
+        },
+        "route_table_association": [
+          {
+            "subnet_id": "private-b"
+          }
+        ]
+      }
+    },
+    "route": {
+    }
+  }
+}

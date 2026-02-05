@@ -1,0 +1,150 @@
+{
+  "network": {
+    "security_group": {
+      "vmseries_private": {
+        "name": "vmseries_private",
+        "description": "Security group for VM-Series private interfaces",
+        "vpc_id": "firewall",
+        "ingress_rules": [
+          {
+            "description": "Permit GENEVE to GWLB subnets",
+            "from_port": 6081,
+            "to_port": 6081,
+            "protocol": "udp",
+            "cidr_blocks": ["10.100.5.0/24", "10.100.69.0/24"]
+          },
+          {
+            "description": "Permit Port 80 Health Probe to GWLB subnets",
+            "from_port": 80,
+            "to_port": 80,
+            "protocol": "tcp",
+            "cidr_blocks": ["10.100.5.0/24", "10.100.69.0/24"]
+          }
+        ],
+        "egress_rules": [
+          {
+            "description": "Permit All traffic outbound",
+            "from_port": 0,
+            "to_port": 0,
+            "protocol": "-1",
+            "cidr_blocks": ["0.0.0.0/0"]
+          }
+        ],
+        "tags": {
+          "Name": "vmseries_private",
+          "role": "firewall_security_group"
+        }
+      },
+      "vmseries_mgmt": {
+        "name": "vmseries_mgmt",
+        "description": "Security group for VM-Series management interfaces",
+        "vpc_id": "firewall",
+        "ingress_rules": [
+          {
+            "description": "Permit HTTPS",
+            "from_port": 443,
+            "to_port": 443,
+            "protocol": "tcp",
+            "cidr_blocks": ["130.41.247.0/24"]
+          },
+          {
+            "description": "Permit SSH",
+            "from_port": 22,
+            "to_port": 22,
+            "protocol": "tcp",
+            "cidr_blocks": ["130.41.247.0/24"]
+          },
+          {
+            "description": "Permit Panorama SSH (Optional)",
+            "from_port": 22,
+            "to_port": 22,
+            "protocol": "tcp",
+            "cidr_blocks": ["10.0.0.0/8"]
+          }
+        ],
+        "egress_rules": [
+          {
+            "description": "Permit All traffic outbound",
+            "from_port": 0,
+            "to_port": 0,
+            "protocol": "-1",
+            "cidr_blocks": ["0.0.0.0/0"]
+          }
+        ],
+        "tags": {
+          "Name": "vmseries_mgmt",
+          "role": "firewall_security_group"
+        }
+      },
+      "vmseries_public": {
+        "name": "vmseries_public",
+        "description": "Security group for VM-Series public interfaces",
+        "vpc_id": "firewall",
+        "ingress_rules": [
+          {
+            "description": "Permit SSH",
+            "from_port": 22,
+            "to_port": 22,
+            "protocol": "tcp",
+            "cidr_blocks": ["130.41.247.0/24", "10.104.0.0/16", "10.105.0.0/16"]
+          },
+          {
+            "description": "Permit HTTPS",
+            "from_port": 443,
+            "to_port": 443,
+            "protocol": "tcp",
+            "cidr_blocks": ["130.41.247.0/24", "10.104.0.0/16", "10.105.0.0/16"]
+          },
+          {
+            "description": "Permit HTTP",
+            "from_port": 80,
+            "to_port": 80,
+            "protocol": "tcp",
+            "cidr_blocks": ["130.41.247.0/24", "10.104.0.0/16", "10.105.0.0/16"]
+          },
+          {
+            "description": "Permit Port 8081 Health Probe to ALB",
+            "from_port": 8081,
+            "to_port": 8081,
+            "protocol": "tcp",
+            "cidr_blocks": ["10.100.6.0/24", "10.100.70.0/24"]
+          },
+          {
+            "description": "Permit Port 8082 Health Probe to ALB",
+            "from_port": 8082,
+            "to_port": 8082,
+            "protocol": "tcp",
+            "cidr_blocks": ["10.100.6.0/24", "10.100.70.0/24"]
+          },
+          {
+            "description": "Permit Port 2021 Health Probe to NLB",
+            "from_port": 2021,
+            "to_port": 2021,
+            "protocol": "tcp",
+            "cidr_blocks": ["10.100.7.0/24", "10.100.71.0/24"]
+          },
+          {
+            "description": "Permit Port 2022 Health Probe to NLB",
+            "from_port": 2022,
+            "to_port": 2022,
+            "protocol": "tcp",
+            "cidr_blocks": ["10.100.7.0/24", "10.100.71.0/24"]
+          }
+        ],
+        "egress_rules": [
+          {
+            "description": "Permit All traffic outbound",
+            "from_port": 0,
+            "to_port": 0,
+            "protocol": "-1",
+            "cidr_blocks": ["0.0.0.0/0"]
+          }
+        ],
+        "tags": {
+          "Name": "vmseries_public",
+          "role": "firewall_security_group"
+        }
+      }
+    }
+  }
+} 
