@@ -1,4 +1,4 @@
 provider "aws" {
   region = local.config.customer.regions.primary
-  profile = "AWSAdministratorAccess-606864724315"
+  profile = "AWSAdministratorAccess"
 }
