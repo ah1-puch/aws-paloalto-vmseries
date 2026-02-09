@@ -9,15 +9,15 @@ terraform {
     }
     local = {
       source  = "hashicorp/local"
-      version = "~> 2.1.0"
+      version = "> 2.0.0"
     }
     time = {
       source  = "hashicorp/time"
-      version = "~> 0.12.0"
+      version = "> 0.12.0"
     }
     utils = {
       source  = "cloudposse/utils"
-      version = "0.17.15"
+      version = "> 1.0.0"
     }
   }
 
