@@ -21,10 +21,6 @@ terraform {
     }
   }
 
-
-  # backend "local" {
-  # }
-
   backend "s3" {
     bucket       = "tfstate-networking-15160685"
     key          = "networking.tfstate"
